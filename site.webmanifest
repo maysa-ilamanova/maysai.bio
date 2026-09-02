@@ -1,0 +1,17 @@
+{
+  "name": "Maysa Ilamanova",
+  "short_name": "Maysa",
+  "description": "MIT Chemistry PhD candidate — DNA adductomics, machine learning, and analytical chemistry.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F4EDE3",
+  "theme_color": "#3E4A36",
+  "icons": [
+    {
+      "src": "assets/icons/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
