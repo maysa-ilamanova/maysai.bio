@@ -92,7 +92,7 @@
       z-index: 200;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
       padding: 10px 20px 17px;
       background: rgba(244, 237, 227, 0.88);
       backdrop-filter: blur(18px);
@@ -110,16 +110,9 @@
       background: rgba(38, 34, 32, 0.1);
     }
 
-    .nav-brand {
-      font-family: var(--serif);
-      font-size: 1.2rem;
-      color: var(--dark);
-      text-decoration: none;
-      letter-spacing: 0.01em;
-    }
-
     .nav-links {
       display: flex;
+      flex-wrap: wrap;
       gap: 10px;
       list-style: none;
     }
@@ -152,21 +145,24 @@
       padding: 10px 20px;
     }
 
-    /* ─── BENTOLIO-STYLE MOTION (page load only) ─────── */
-    @keyframes motion-floatIn {
+    /* ─── WIX STUDIO–STYLE ENTRANCE MOTION ───────────── */
+    /* Float-In: slides in from a direction while fading */
+    @keyframes motion-float {
       0% { opacity: 0; }
-      0.01% { opacity: 0; transform: translate3d(var(--motion-x, 0), var(--motion-y, 60px), 0); }
+      0.01% { opacity: 0; transform: translate3d(var(--motion-x, 0), var(--motion-y, 48px), 0); }
       100% { opacity: 1; transform: translate3d(0, 0, 0); }
     }
 
-    @keyframes motion-fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    /* Expand-In: grows from smaller scale */
+    @keyframes motion-expand {
+      0% { opacity: 0; transform: scale(0.82); }
+      100% { opacity: 1; transform: scale(1); }
     }
 
-    @keyframes motion-dropIn {
-      from { transform: scale(1.2); }
-      to { transform: scale(1); }
+    /* Shrink: settles from larger scale */
+    @keyframes motion-shrink {
+      0% { opacity: 0; transform: scale(1.18); }
+      100% { opacity: 1; transform: scale(1); }
     }
 
     .tile {
@@ -177,40 +173,38 @@
       animation-play-state: paused;
     }
 
-    /* Center portrait — fade + drop (Bentolio hero tile) */
+    /* Photo — Shrink */
     .tile.tile-photo {
-      animation:
-        motion-fadeIn 640ms 0ms cubic-bezier(0.25, 0.46, 0.45, 0.94) both paused,
-        motion-dropIn 800ms 0ms cubic-bezier(0.215, 0.61, 0.355, 1) both paused;
+      transform-origin: center center;
+      animation: motion-shrink 720ms 0ms cubic-bezier(0.25, 0.46, 0.45, 0.94) both paused;
     }
 
-    /* Intro neighbors — directional float */
+    /* About — Expand */
+    .tile.about {
+      transform-origin: center center;
+      --motion-delay: 120ms;
+      animation: motion-expand 680ms var(--motion-delay) cubic-bezier(0.22, 1, 0.36, 1) both paused;
+    }
+
+    /* All other tiles — Float */
     .tile.hero {
       --motion-x: 0;
-      --motion-y: -60px;
-      --motion-delay: 200ms;
-      animation: motion-floatIn 600ms var(--motion-delay) cubic-bezier(0.445, 0.05, 0.55, 0.95) both paused;
-    }
-
-    .tile.about {
-      --motion-x: -60px;
-      --motion-y: 0;
-      --motion-delay: 200ms;
-      animation: motion-floatIn 600ms var(--motion-delay) cubic-bezier(0.445, 0.05, 0.55, 0.95) both paused;
+      --motion-y: -48px;
+      --motion-delay: 180ms;
+      animation: motion-float 640ms var(--motion-delay) cubic-bezier(0.445, 0.05, 0.55, 0.95) both paused;
     }
 
     .tile.edu {
-      --motion-x: 60px;
+      --motion-x: 56px;
       --motion-y: 0;
-      --motion-delay: 300ms;
-      animation: motion-floatIn 600ms var(--motion-delay) cubic-bezier(0.445, 0.05, 0.55, 0.95) both paused;
+      --motion-delay: 220ms;
+      animation: motion-float 640ms var(--motion-delay) cubic-bezier(0.445, 0.05, 0.55, 0.95) both paused;
     }
 
-    /* Lower sections — float up with stagger (delay set in JS) */
     .tile.motion-below {
       --motion-x: 0;
-      --motion-y: 60px;
-      animation: motion-floatIn 600ms var(--motion-delay, 400ms) cubic-bezier(0.445, 0.05, 0.55, 0.95) both paused;
+      --motion-y: 48px;
+      animation: motion-float 640ms var(--motion-delay, 400ms) cubic-bezier(0.445, 0.05, 0.55, 0.95) both paused;
     }
 
     body.motion-play .tile {
@@ -230,14 +224,12 @@
 
     @media (max-width: 1000px) {
       .tile.hero,
-      .tile.about,
       .tile.edu,
       .tile.motion-below {
         --motion-x: 0;
-        --motion-y: 60px;
+        --motion-y: 48px;
       }
       .tile.hero { --motion-delay: 100ms; }
-      .tile.about { --motion-delay: 200ms; }
       .tile.edu { --motion-delay: 200ms; }
     }
 
@@ -862,10 +854,6 @@
         padding: 8px 12px 10px;
       }
       nav::after { left: 12px; right: 12px; }
-      .nav-brand {
-        font-size: 1rem;
-        line-height: 1.1;
-      }
       nav .nav-links {
         display: flex;
         width: 100%;
@@ -963,9 +951,7 @@
 
 <!-- ─── NAV ─────────────────────────────────────────── -->
 <nav>
-  <a href="#top" class="nav-brand">Maysa Ilamanova</a>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
     <li><a href="#research">Research</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#publications">Publications</a></li>
@@ -1287,27 +1273,22 @@
 </main>
 
 <script>
-  // ── Bentolio-style page-load motion ─────────────────
+  // ── Wix Studio–style page-load motion ─────────────────
   const tiles = document.querySelectorAll('.tile');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const introSet = new Set(['hero', 'about', 'edu', 'tile-photo']);
+  // Photo = shrink, About = expand; everything else floats
+  const specialSet = new Set(['about', 'tile-photo']);
+  const hasOwnFloat = new Set(['hero', 'edu', 'about', 'tile-photo']);
 
-  function isIntro(tile) {
-    return [...tile.classList].some(c => introSet.has(c));
-  }
-
-  function setupBelowTiles() {
-    const below = document.querySelectorAll('.research-row .tile, .exp-row .tile');
-    below.forEach((tile, i) => {
-      tile.classList.add('motion-below');
-      tile.style.setProperty('--motion-delay', (400 + i * 100) + 'ms');
-    });
+  function setupFloatTiles() {
+    let i = 0;
     tiles.forEach(tile => {
-      if (!isIntro(tile) && !tile.classList.contains('motion-below')) {
-        tile.classList.add('motion-done');
-        tile.style.animation = 'none';
-        tile.style.opacity = '1';
-      }
+      const classes = [...tile.classList];
+      if (classes.some(c => specialSet.has(c))) return;
+      if (classes.some(c => hasOwnFloat.has(c))) return;
+      tile.classList.add('motion-below');
+      tile.style.setProperty('--motion-delay', (320 + i * 80) + 'ms');
+      i += 1;
     });
   }
 
@@ -1324,13 +1305,13 @@
         return parseInt(d, 10) || 0;
       })
     );
-    setTimeout(markMotionDone, maxDelay + 650);
+    setTimeout(markMotionDone, maxDelay + 700);
   }
 
   if (reducedMotion) {
     tiles.forEach(t => t.classList.add('motion-done'));
   } else {
-    setupBelowTiles();
+    setupFloatTiles();
     if (document.readyState === 'complete') {
       requestAnimationFrame(playMotion);
     } else {
