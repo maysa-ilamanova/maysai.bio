@@ -858,27 +858,32 @@
       /* ── Nav ── */
       nav {
         flex-wrap: wrap;
-        gap: 6px;
-        padding: 10px 16px 10px;
+        gap: 8px;
+        padding: 8px 12px 10px;
       }
-      nav::after { left: 0; right: 0; }
+      nav::after { left: 12px; right: 12px; }
+      .nav-brand {
+        font-size: 1rem;
+        line-height: 1.1;
+      }
       nav .nav-links {
         display: flex;
         width: 100%;
-        flex-wrap: nowrap;
-        gap: 4px;
-        overflow-x: auto;
-        scrollbar-width: none;
-        padding-bottom: 2px;
+        flex-wrap: wrap;
+        gap: 5px;
+        overflow: visible;
+        padding-bottom: 0;
       }
-      nav .nav-links::-webkit-scrollbar { display: none; }
       nav .nav-links a {
-        font-size: 0.65rem;
-        padding: 4px 9px;
-        letter-spacing: 0.06em;
+        font-size: 0.58rem;
+        padding: 3px 8px;
+        letter-spacing: 0.05em;
         white-space: nowrap;
         flex-shrink: 0;
       }
+
+      /* Hide hero badges on phone — frees vertical space */
+      .hero-badges { display: none; }
 
       /* ── Single-column grid ── */
       .bento {
@@ -1107,7 +1112,7 @@
 
     <div class="tile t-sand exp">
       <span class="role" style="color:var(--caramel); opacity:1;">MIT × Industry</span>
-      <div class="co">Sarepta</div>
+      <div class="co">Sarepta Therapeutics</div>
       <div class="date">Nov 2022 – Jan 2024 · Cambridge, MA</div>
       <div class="desc">Peptide-Mediated Enhancement of Antisense Oligonucleotide Delivery to the CNS for Spinal Muscular Atrophy.</div>
 
